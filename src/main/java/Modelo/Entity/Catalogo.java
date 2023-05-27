@@ -4,6 +4,8 @@
  */
 package Modelo.Entity;
 
+import java.util.List;
+
 /**
  *
  * @author Alex Blanco
@@ -20,6 +22,10 @@ public class Catalogo {
     private String facebook;
     private String whatsapp;
     private String instagram;
+    private List<Producto> productos;
+            
+    public Catalogo() {
+    }
 
     public Catalogo(int id, String nombre, String descripcion, String logo, String banner, String telefono, String direccion, String twitter, String facebook, String whatsapp, String instagram) {
         this.id = id;
@@ -34,9 +40,20 @@ public class Catalogo {
         this.whatsapp = whatsapp;
         this.instagram = instagram;
     }
-
-    public Catalogo(int id) {
+    
+    public Catalogo(int id, String nombre, String descripcion, String logo, String banner, String telefono, String direccion, String twitter, String facebook, String whatsapp, String instagram, List<Producto> productos) {
         this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.logo = logo;
+        this.banner = banner;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.twitter = twitter;
+        this.facebook = facebook;
+        this.whatsapp = whatsapp;
+        this.instagram = instagram;
+        this.productos = productos;
     }
 
     public int getId() {
@@ -127,10 +144,17 @@ public class Catalogo {
         this.instagram = instagram;
     }
 
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
     @Override
     public String toString() {
-        return "Catalogo{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", logo=" + logo + ", banner=" + banner + ", telefono=" + telefono + ", direccion=" + direccion + ", twitter=" + twitter + ", facebook=" + facebook + ", whatsapp=" + whatsapp + ", instagram=" + instagram + '}';
+        return "Catalogo{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", logo=" + logo + ", banner=" + banner + ", telefono=" + telefono + ", direccion=" + direccion + ", twitter=" + twitter + ", facebook=" + facebook + ", whatsapp=" + whatsapp + ", instagram=" + instagram + ", productos=" + productos + '}';
     }
-    
-    
+
 }

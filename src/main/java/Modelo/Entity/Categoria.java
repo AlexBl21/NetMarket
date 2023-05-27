@@ -4,6 +4,8 @@
  */
 package Modelo.Entity;
 
+import java.util.List;
+
 /**
  *
  * @author Alex Blanco
@@ -11,14 +13,19 @@ package Modelo.Entity;
 public class Categoria {
     private int id;
     private String nombre;
+    private List<Producto> productos;
 
-    public Categoria(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    public Categoria() {
     }
 
     public Categoria(int id) {
         this.id = id;
+    }
+
+    public Categoria(int id, String nombre, List<Producto> productos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.productos = productos;
     }
 
     public int getId() {
@@ -37,9 +44,17 @@ public class Categoria {
         this.nombre = nombre;
     }
 
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
     @Override
     public String toString() {
-        return "Categoria{" + "id=" + id + ", nombre=" + nombre + '}';
+        return "Categoria{" + "id=" + id + ", nombre=" + nombre + ", productos=" + productos + '}';
     }
     
 }
