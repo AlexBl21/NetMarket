@@ -22,6 +22,11 @@ public class Categoria {
         this.id = id;
     }
 
+    public Categoria(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     public Categoria(int id, String nombre, List<Producto> productos) {
         this.id = id;
         this.nombre = nombre;

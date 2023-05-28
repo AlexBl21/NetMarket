@@ -16,8 +16,8 @@ import org.apache.commons.dbcp2.BasicDataSource;
  * @author Alex Blanco
  */
 public class BaseDeDatos {
-    public static final String JDBC_URL = "jdbc:mysql://54.147.25.136:3306/1152247?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    public static final String DB_USER = "test";
+    public static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/netmarket?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    public static final String DB_USER = "root";
     public static final String DB_CLAVE = "test1_*";
     
     public static DataSource getDataSource(){
@@ -25,7 +25,7 @@ public class BaseDeDatos {
         BasicDataSource bs = new BasicDataSource();
         bs.setUrl(JDBC_URL);
         bs.setUsername(DB_USER);
-        bs.setPassword(DB_CLAVE);  
+        //bs.setPassword(DB_CLAVE);  
         bs.setInitialSize(5);
         return bs; 
         

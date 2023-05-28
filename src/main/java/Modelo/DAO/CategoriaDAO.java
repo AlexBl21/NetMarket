@@ -4,8 +4,7 @@
  */
 package Modelo.DAO;
 
-import Modelo.Entity.Catalogo;
-import Modelo.Entity.Usuario;
+import Modelo.Entity.Categoria;
 import Red.BaseDeDatos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,16 +19,16 @@ import java.util.logging.Logger;
  *
  * @author juanafanador07
  */
-public class UsuarioDAO implements IUsuario {
+public class CategoriaDAO implements ICategoria {
 
-    final static String SQL_CONSULTAR = "SELECT * FROM usuario";
-    final static String SQL_INSERTAR = "INSERT INTO usuario(id,nombre,correo) Value(?,?,?)";
-    final static String SQL_BORRAR = "DELETE FROM usuario WHERE id = ?";
-    final static String SQL_CONSULTAR_ID = "SELECT * FROM usuario WHERE id=?";
-    final static String SQL_ACTUALIZAR = "UPDATE usuario SET nombre=?, correo=? WHERE id=?";
+    final static String SQL_CONSULTAR = "SELECT * FROM categoria";
+    final static String SQL_INSERTAR = "INSERT INTO categoria(id,nombre) Value(?,?)";
+    final static String SQL_BORRAR = "DELETE FROM categoria WHERE id = ?";
+    final static String SQL_CONSULTAR_ID = "SELECT * FROM categoria WHERE id=?";
+    final static String SQL_ACTUALIZAR = "UPDATE categoria SET nombre=? WHERE id=?";
 
     @Override
-    public int insertar(Usuario usuario) {
+    public int insertar(Categoria categoria) {
         Connection connection = null;
         PreparedStatement sentencia = null;
         int resultado = 0;
@@ -37,31 +36,30 @@ public class UsuarioDAO implements IUsuario {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_INSERTAR);
-            sentencia.setInt(1, usuario.getId());
-            sentencia.setString(2, usuario.getNombre());
-            sentencia.setString(3, usuario.getCorreo());
+            sentencia.setInt(1, categoria.getId());
+            sentencia.setString(2, categoria.getNombre());
             resultado = sentencia.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 BaseDeDatos.close(sentencia);
                 BaseDeDatos.close(connection);
             } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resultado;
     }
 
     @Override
-    public List<Usuario> consultar() {
+    public List<Categoria> consultar() {
         Connection connection = null;
         PreparedStatement sentencia = null;
         ResultSet resultado = null;
-        List<Usuario> usuarios = new ArrayList();
+        List<Categoria> categorias = new ArrayList();
 
         try {
             connection = BaseDeDatos.getConnection();
@@ -70,75 +68,64 @@ public class UsuarioDAO implements IUsuario {
             while (resultado.next()) {//recorre los registros
                 int id = resultado.getInt("id");
                 String nombre = resultado.getString("nombre");
-                String correo = resultado.getString("correo");
 
-                Usuario usuario = new Usuario(id, nombre, correo);
+                Categoria categoria = new Categoria(id, nombre);
 
-                CatalogoDAO catalogoDAO = new CatalogoDAO();
-                List<Catalogo> catalogos = catalogoDAO.consultarPorUsuario(usuario);
-                usuario.setCatalogos(catalogos);
-
-                usuarios.add(usuario);
+                categorias.add(categoria);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {//este bloque cierra lo que se abrió.no olvidar que se cierra en sentido opuestto al que se abre
             try {
                 BaseDeDatos.close(resultado);
                 BaseDeDatos.close(sentencia);
                 BaseDeDatos.close(connection);
             } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return usuarios;
+        return categorias;
     }
 
     @Override
-    public Usuario consultarPorId(Usuario usuario) {
+    public Categoria consultarPorId(Categoria categoria) {
         Connection connection = null;//conecta
         PreparedStatement sentencia = null;//prepara la sentencia
         ResultSet resultado = null;
-        Usuario rUsuario = null;//el resultado a sacar
+        Categoria rCategoria = null;//el resultado a sacar
 
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_CONSULTAR_ID, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY); //esto sirve para que prepare la tabla de datos(lo de resultset garantiza que devuelva un solo resultadoo)
-            sentencia.setInt(1, usuario.getId());
+            sentencia.setInt(1, categoria.getId());
             resultado = sentencia.executeQuery();//toma la forma del registro
             resultado.absolute(1);
 
             int id = resultado.getInt("id");
             String nombre = resultado.getString("nombre");
-            String correo = resultado.getString("correo");
 
-            rUsuario = new Usuario(id, nombre, correo);
-
-            CatalogoDAO catalogoDAO = new CatalogoDAO();
-            List<Catalogo> catalogos = catalogoDAO.consultarPorUsuario(rUsuario);
-            rUsuario.setCatalogos(catalogos);
-
+            rCategoria = new Categoria(id, nombre);
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {//este bloque cierra lo que se abrió.no olvidar que se cierra en sentido opuestto al que se abre
             try {
                 BaseDeDatos.close(resultado);
                 BaseDeDatos.close(sentencia);
                 BaseDeDatos.close(connection);
             } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return rUsuario;
+        return rCategoria;
     }
 
     @Override
-    public int borrar(Usuario usuario) {
+    public int borrar(Categoria categoria) {
         Connection connection = null;
         PreparedStatement sentencia = null;
         int resultado = 0;
@@ -146,25 +133,25 @@ public class UsuarioDAO implements IUsuario {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_BORRAR);
-            sentencia.setInt(1, usuario.getId());
+            sentencia.setInt(1, categoria.getId());
             resultado = sentencia.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 BaseDeDatos.close(sentencia);
                 BaseDeDatos.close(connection);
             } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resultado;
     }
 
     @Override
-    public int actualizar(Usuario usuario) {
+    public int actualizar(Categoria categoria) {
         Connection connection = null;
         PreparedStatement sentencia = null;
         int resultado = 0;
@@ -172,20 +159,19 @@ public class UsuarioDAO implements IUsuario {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_ACTUALIZAR);
-            sentencia.setInt(3, usuario.getId());
-            sentencia.setString(1, usuario.getNombre());
-            sentencia.setString(2, usuario.getCorreo());
+            sentencia.setInt(2, categoria.getId());
+            sentencia.setString(1, categoria.getNombre());
             resultado = sentencia.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 BaseDeDatos.close(sentencia);
                 BaseDeDatos.close(connection);
             } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resultado;

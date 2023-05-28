@@ -28,7 +28,7 @@ public class CatalogoDAO implements ICatalogo {
     final static String SQL_CONSULTAR_ID = "SELECT * FROM catalogo WHERE id=?";
     final static String SQL_CONSULTAR_USUARIO = "SELECT * FROM catalogo WHERE id_usuario = ?";
     final static String SQL_BORRAR = "DELETE FROM catalogo WHERE id = ?";
-    final static String SQL_ACTUALIZAR = "UPDATE producto SET nombre=?, descripcion=?, logo=?, banner=?, telefono=?, direccion=?, twitter=?, facebook=?, whatsapp=?, instagram=? WHERE id=?";
+    final static String SQL_ACTUALIZAR = "UPDATE catalogo SET nombre=?, descripcion=?, logo=?, banner=?, telefono=?, direccion=?, twitter=?, facebook=?, whatsapp=?, instagram=? WHERE id=?";
 
     @Override
     public int insertar(Catalogo catalogo, Usuario usuario) {
