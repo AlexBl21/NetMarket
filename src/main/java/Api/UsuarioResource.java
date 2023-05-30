@@ -24,8 +24,8 @@ import java.util.List;
  */
 @Path("/apiturista")
 public class UsuarioResource {
-    
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @GET
     @Path("/usuario")
@@ -79,5 +79,5 @@ public class UsuarioResource {
             return Response.ok("Correcto").build();
         }
     }
-    
+
 }
