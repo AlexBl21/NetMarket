@@ -6,34 +6,40 @@ package DAO;
 
 import Modelo.DAO.CatalogoDAO;
 import Modelo.DAO.CategoriaDAO;
+import Modelo.DAO.ProductoCategoriaDAO;
 import Modelo.DAO.ProductoDAO;
 import Modelo.DAO.UsuarioDAO;
 import Modelo.Entity.Catalogo;
 import Modelo.Entity.Categoria;
 import Modelo.Entity.Producto;
 import Modelo.Entity.Usuario;
+import java.util.Random;
 
 /**
  *
  * @author juanafanador07
  */
 public class TestDao {
+    
+    public static int randomID(){
+        return new Random().nextInt(999999);
+    }
 
     public static void main(String[] args) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         CatalogoDAO catalogoDAO = new CatalogoDAO();
         ProductoDAO productoDAO = new ProductoDAO();
         CategoriaDAO categoriaDAO = new CategoriaDAO();
+        ProductoCategoriaDAO productoCategoriaDAO = new ProductoCategoriaDAO();
     
         // test usuarios
-        Usuario usuario = new Usuario(0, "nombre de usuario", "correo electronico");
+        Usuario usuario = new Usuario(randomID(), "nombre de usuario", "correo electronico");
         System.out.println("USUARIO LOCAL: " + usuario);
         
         usuarioDAO.insertar(usuario);
         
         // mostrar todos
-        System.out.println(usuarioDAO.consultar());
-
+        System.out.println(usuarioDAO.consultar()); 
         
         usuario = usuarioDAO.consultarPorId(usuario);
         System.out.println("USUARIO DB: " + usuario);
@@ -45,7 +51,7 @@ public class TestDao {
         System.out.println("USUARIO DB: " + usuario);
         
         // test catalogos
-        Catalogo catalogo = new Catalogo(0, "nombre", "descripcion", "logo", "banner", "telefono", "direccion", "twitter", "facebook", "whatsapp", "instagram");
+        Catalogo catalogo = new Catalogo(randomID(), "nombre", "descripcion", "logo", "banner", "telefono", "direccion", "twitter", "facebook", "whatsapp", "instagram");
         catalogoDAO.insertar(catalogo, usuario);
         
         usuario = usuarioDAO.consultarPorId(usuario);
@@ -61,7 +67,7 @@ public class TestDao {
         catalogoDAO.insertar(catalogo, usuario);
         
         // test productos
-        Producto producto = new Producto(0, "nombre", "foto", 0, "descripcion");
+        Producto producto = new Producto(randomID(), "nombre", "foto", 0, "descripcion");
         productoDAO.insertar(producto, catalogo);
         
         usuario = usuarioDAO.consultarPorId(usuario);
@@ -77,21 +83,29 @@ public class TestDao {
         productoDAO.insertar(producto, catalogo);
         
         // test categorias
-        Categoria categoria = new Categoria(0, "nombre");
-        categoriaDAO.insertar(categoria);
+        Categoria categoria = new Categoria(randomID(), "nombre");
+        categoriaDAO.insertar(categoria, catalogo);
         
-        categoria = categoriaDAO.consultarPorId(categoria);
-        System.out.println(categoria);
+        usuario = usuarioDAO.consultarPorId(usuario);
+        System.out.println(usuario);
         
         categoria.setNombre("nombre 2");
         categoriaDAO.actualizar(categoria);
         
-        categoria = categoriaDAO.consultarPorId(categoria);
-        System.out.println(categoria);
+        usuario = usuarioDAO.consultarPorId(usuario);
+        System.out.println(usuario);
         
         System.out.println("Borrar categoria:" + categoriaDAO.borrar(categoria));
-        //categoriaDAO.insertar(categoria);
+        categoriaDAO.insertar(categoria, catalogo);
 
-        System.out.println(usuarioDAO.borrar(usuario));
+        // test producto categoria
+        System.out.println("Insertar ProductoCategoria: " + productoCategoriaDAO.insertar(producto, categoria));
+        System.out.println("Borrar ProductoCategoria: " + productoCategoriaDAO.borrar(producto, categoria));
+        productoCategoriaDAO.insertar(producto, categoria);
+        
+        System.out.println(productoDAO.consultarPorCategoria(categoria));
+        System.out.println(categoriaDAO.consultarPorProducto(producto));
+        
+        //System.out.println(usuarioDAO.borrar(usuario));
     }
 }

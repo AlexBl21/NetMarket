@@ -23,6 +23,7 @@ public class Catalogo {
     private String whatsapp;
     private String instagram;
     private List<Producto> productos;
+    private List<Categoria> categorias;
             
     public Catalogo() {
     }
@@ -40,8 +41,8 @@ public class Catalogo {
         this.whatsapp = whatsapp;
         this.instagram = instagram;
     }
-    
-    public Catalogo(int id, String nombre, String descripcion, String logo, String banner, String telefono, String direccion, String twitter, String facebook, String whatsapp, String instagram, List<Producto> productos) {
+
+    public Catalogo(int id, String nombre, String descripcion, String logo, String banner, String telefono, String direccion, String twitter, String facebook, String whatsapp, String instagram, List<Producto> productos, List<Categoria> categorias) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -54,6 +55,7 @@ public class Catalogo {
         this.whatsapp = whatsapp;
         this.instagram = instagram;
         this.productos = productos;
+        this.categorias = categorias;
     }
 
     public int getId() {
@@ -152,9 +154,17 @@ public class Catalogo {
         this.productos = productos;
     }
 
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
     @Override
     public String toString() {
-        return "Catalogo{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", logo=" + logo + ", banner=" + banner + ", telefono=" + telefono + ", direccion=" + direccion + ", twitter=" + twitter + ", facebook=" + facebook + ", whatsapp=" + whatsapp + ", instagram=" + instagram + ", productos=" + productos + '}';
+        return "Catalogo{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", logo=" + logo + ", banner=" + banner + ", telefono=" + telefono + ", direccion=" + direccion + ", twitter=" + twitter + ", facebook=" + facebook + ", whatsapp=" + whatsapp + ", instagram=" + instagram + ", productos=" + productos + ", categorias=" + categorias + '}';
     }
 
 }

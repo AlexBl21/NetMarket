@@ -4,8 +4,6 @@
  */
 package Modelo.Entity;
 
-import java.util.List;
-
 /**
  *
  * @author Alex Blanco
@@ -16,7 +14,6 @@ public class Producto {
     private String foto;
     private float precio;
     private String descripcion;
-    private List<Categoria> categorias;
 
     public Producto() {
     }
@@ -31,15 +28,6 @@ public class Producto {
         this.foto = foto;
         this.precio = precio;
         this.descripcion = descripcion;
-    }
-
-    public Producto(int id, String nombre, String foto, float precio, String descripcion, List<Categoria> categorias) {
-        this.id = id;
-        this.nombre = nombre;
-        this.foto = foto;
-        this.precio = precio;
-        this.descripcion = descripcion;
-        this.categorias = categorias;
     }
 
     public int getId() {
@@ -82,18 +70,10 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
-
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", precio=" + precio + ", descripcion=" + descripcion + ", categorias=" + categorias + '}';
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", precio=" + precio + ", descripcion=" + descripcion + '}';
     }
 
-    
+
 }

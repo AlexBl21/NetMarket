@@ -5,6 +5,7 @@
 package Modelo.DAO;
 
 import Modelo.Entity.Catalogo;
+import Modelo.Entity.Categoria;
 import Modelo.Entity.Producto;
 import Modelo.Entity.Usuario;
 import Red.BaseDeDatos;
@@ -95,9 +96,12 @@ public class CatalogoDAO implements ICatalogo {
 
                 ProductoDAO productoDAO = new ProductoDAO();
                 List<Producto> productos = productoDAO.consultarPorCatalogo(catalogo);
+                
+                CategoriaDAO categoriaDAO = new CategoriaDAO();
+                List<Categoria> categorias = categoriaDAO.consultarPorCatalogo(catalogo);
 
                 catalogo.setProductos(productos);
-
+                catalogo.setCategorias(categorias);
                 catalogos.add(catalogo);
             }
 
@@ -146,8 +150,12 @@ public class CatalogoDAO implements ICatalogo {
 
                 ProductoDAO productoDAO = new ProductoDAO();
                 List<Producto> productos = productoDAO.consultarPorCatalogo(catalogo);
+                
+                CategoriaDAO categoriaDAO = new CategoriaDAO();
+                List<Categoria> categorias = categoriaDAO.consultarPorCatalogo(catalogo);
 
                 catalogo.setProductos(productos);
+                catalogo.setCategorias(categorias);
 
                 catalogos.add(catalogo);
             }
@@ -198,8 +206,12 @@ public class CatalogoDAO implements ICatalogo {
 
             ProductoDAO productoDAO = new ProductoDAO();
             List<Producto> productos = productoDAO.consultarPorCatalogo(catalogo);
-
+            
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            List<Categoria> categorias = categoriaDAO.consultarPorCatalogo(catalogo);
+            
             rCatalogo.setProductos(productos);
+            rCatalogo.setCategorias(categorias);
         } catch (SQLException ex) {
             Logger.getLogger(CatalogoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

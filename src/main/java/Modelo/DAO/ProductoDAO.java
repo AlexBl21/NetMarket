@@ -5,6 +5,7 @@
 package Modelo.DAO;
 
 import Modelo.Entity.Catalogo;
+import Modelo.Entity.Categoria;
 import Modelo.Entity.Producto;
 import Red.BaseDeDatos;
 import java.sql.Connection;
@@ -25,6 +26,7 @@ public class ProductoDAO implements IProducto {
     final static String SQL_INSERTAR = "INSERT INTO producto(id,nombre,foto,precio,descripcion,id_catalogo) Value(?,?,?,?,?,?)";
     final static String SQL_CONSULTAR = "SELECT * FROM producto";
     final static String SQL_CONSULTAR_ID = "SELECT * FROM producto WHERE id=?";
+    final static String SQL_CONSULTAR_CATEGORIA = "SELECT p.* FROM producto p, producto_categoria pc WHERE pc.id_categoria = ?";
     final static String SQL_CONSULTAR_CATALOGO = "SELECT * FROM producto WHERE id_catalogo = ?";
     final static String SQL_BORRAR = "DELETE FROM producto WHERE id = ?";
     final static String SQL_ACTUALIZAR = "UPDATE producto SET nombre=?, foto=?, precio=?, descripcion=? WHERE id=?";
@@ -70,6 +72,45 @@ public class ProductoDAO implements IProducto {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_CONSULTAR); //esto sirve para que prepare la tabla de datos
+            resultado = sentencia.executeQuery();//toma la forma del registro
+            while (resultado.next()) {//recorre los registros
+                int id = resultado.getInt("id");
+                String nombre = resultado.getString("nombre");
+                String foto = resultado.getString("foto");
+                float precio = resultado.getFloat("precio");
+                String descripcion = resultado.getString("descripcion");
+
+                Producto producto = new Producto(id, nombre, foto, precio, descripcion);
+                productos.add(producto);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {//este bloque cierra lo que se abrió.no olvidar que se cierra en sentido opuestto al que se abre
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(sentencia);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return productos;
+    }
+    
+    @Override
+    public List<Producto> consultarPorCategoria(Categoria categoria) {
+        Connection connection = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+        List<Producto> productos = new ArrayList();
+
+        try {
+            connection = BaseDeDatos.getConnection();
+            sentencia = connection.prepareStatement(SQL_CONSULTAR_CATEGORIA); //esto sirve para que prepare la tabla de datos
+            sentencia.setInt(1, categoria.getId());
             resultado = sentencia.executeQuery();//toma la forma del registro
             while (resultado.next()) {//recorre los registros
                 int id = resultado.getInt("id");
