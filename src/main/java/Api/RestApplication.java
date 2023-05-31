@@ -20,7 +20,7 @@ public class RestApplication extends Application{
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(CorsFilter.class);
-        //classes.add(TuristaResource.class);
+        classes.add(UsuarioResource.class);
         // Agrega aquí tus clases de recursos (endpoints) adicionales
         return classes;
     }

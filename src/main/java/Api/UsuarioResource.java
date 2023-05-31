@@ -10,6 +10,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -22,13 +23,13 @@ import java.util.List;
  *
  * @author alope
  */
-@Path("/apiturista")
+@Path("/usuario")
 public class UsuarioResource {
 
     UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @GET
-    @Path("/usuario")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
 
     public Response consultar() {
@@ -41,7 +42,7 @@ public class UsuarioResource {
     }
 
     @GET
-    @Path("/usuario/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response consultarId(@PathParam("id") int id) {
         Usuario usuario = new Usuario(id);
@@ -52,7 +53,7 @@ public class UsuarioResource {
     }//matias
 
     @POST
-    @Path("/usuario")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crear(Usuario usuario) {
@@ -65,7 +66,7 @@ public class UsuarioResource {
     }
 
     @DELETE
-    @Path("/usuario/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response borrar(@PathParam("id") int id) {
         Usuario usuario = new Usuario(id);
@@ -78,6 +79,21 @@ public class UsuarioResource {
         } else {
             return Response.ok("Correcto").build();
         }
+    }
+    
+    @PUT
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response actualizar(Usuario usuario) {
+       try{
+            usuarioDAO.actualizar(usuario);
+            return Response.status(Response.Status.CREATED).entity(usuario).build();
+        }
+        catch(Exception ex)
+        {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+        } 
     }
 
 }
