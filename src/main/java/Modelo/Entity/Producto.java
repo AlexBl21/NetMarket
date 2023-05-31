@@ -15,16 +15,19 @@ public class Producto {
     private float precio;
     private String descripcion;
 
+    public Producto() {
+    }
+
+    public Producto(int id) {
+        this.id = id;
+    }
+
     public Producto(int id, String nombre, String foto, float precio, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
         this.precio = precio;
         this.descripcion = descripcion;
-    }
-
-    public Producto(int id) {
-        this.id = id;
     }
 
     public int getId() {
@@ -71,6 +74,6 @@ public class Producto {
     public String toString() {
         return "Producto{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", precio=" + precio + ", descripcion=" + descripcion + '}';
     }
-    
-    
+
+
 }
