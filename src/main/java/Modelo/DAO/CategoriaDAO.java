@@ -28,7 +28,7 @@ public class CategoriaDAO implements ICategoria {
     final static String SQL_BORRAR = "DELETE FROM categoria WHERE id = ?";
     final static String SQL_CONSULTAR_ID = "SELECT * FROM categoria WHERE id=?";
     final static String SQL_CONSULTAR_CATALOGO = "SELECT * FROM categoria WHERE id_catalogo=?";
-    final static String SQL_CONSULTAR_PRODUCTO = "SELECT c.* FROM categoria c, producto_categoria pc WHERE pc.id_producto = ?";
+    final static String SQL_CONSULTAR_PRODUCTO = "SELECT c.* FROM categoria c, producto_categoria pc WHERE pc.id_categoria = c.id AND pc.id_producto = ?";
     final static String SQL_ACTUALIZAR = "UPDATE categoria SET nombre=? WHERE id=?";
 
     @Override

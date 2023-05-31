@@ -26,7 +26,7 @@ public class ProductoDAO implements IProducto {
     final static String SQL_INSERTAR = "INSERT INTO producto(id,nombre,foto,precio,descripcion,id_catalogo) Value(?,?,?,?,?,?)";
     final static String SQL_CONSULTAR = "SELECT * FROM producto";
     final static String SQL_CONSULTAR_ID = "SELECT * FROM producto WHERE id=?";
-    final static String SQL_CONSULTAR_CATEGORIA = "SELECT p.* FROM producto p, producto_categoria pc WHERE pc.id_categoria = ?";
+    final static String SQL_CONSULTAR_CATEGORIA = "SELECT p.* FROM producto p, producto_categoria pc WHERE pc.id_producto = p.id AND pc.id_categoria = ?";
     final static String SQL_CONSULTAR_CATALOGO = "SELECT * FROM producto WHERE id_catalogo = ?";
     final static String SQL_BORRAR = "DELETE FROM producto WHERE id = ?";
     final static String SQL_ACTUALIZAR = "UPDATE producto SET nombre=?, foto=?, precio=?, descripcion=? WHERE id=?";

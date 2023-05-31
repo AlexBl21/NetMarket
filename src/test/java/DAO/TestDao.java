@@ -106,6 +106,6 @@ public class TestDao {
         System.out.println(productoDAO.consultarPorCategoria(categoria));
         System.out.println(categoriaDAO.consultarPorProducto(producto));
         
-        //System.out.println(usuarioDAO.borrar(usuario));
+        System.out.println(usuarioDAO.borrar(usuario));
     }
 }

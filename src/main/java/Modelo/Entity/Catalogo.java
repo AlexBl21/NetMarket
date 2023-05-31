@@ -28,6 +28,10 @@ public class Catalogo {
     public Catalogo() {
     }
 
+    public Catalogo(int id) {
+        this.id = id;
+    }
+
     public Catalogo(int id, String nombre, String descripcion, String logo, String banner, String telefono, String direccion, String twitter, String facebook, String whatsapp, String instagram) {
         this.id = id;
         this.nombre = nombre;
