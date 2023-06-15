@@ -44,7 +44,7 @@ public class UsuarioResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response consultarId(@PathParam("id") int id) {
+    public Response consultarId(@PathParam("id") String id) {
         Usuario usuario = new Usuario(id);
         return Response
                 .status(200)
@@ -56,7 +56,7 @@ public class UsuarioResource {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crear(Usuario usuario) {
+    public Response crear(Usuario usuario) {   
         try {
             usuarioDAO.insertar(usuario);
             return Response.status(Response.Status.CREATED).entity(usuario).build();
@@ -68,7 +68,7 @@ public class UsuarioResource {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response borrar(@PathParam("id") int id) {
+    public Response borrar(@PathParam("id") String id) {
         Usuario usuario = new Usuario(id);
         int i = usuarioDAO.borrar(usuario);
         if (i == 0) {

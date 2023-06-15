@@ -11,7 +11,7 @@ import java.util.List;
  * @author Alex Blanco
  */
 public class Usuario {
-    private int id;
+    private String id;
     private String nombre;
     private String correo;
     private List<Catalogo> catalogos;
@@ -19,28 +19,28 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int id) {
+    public Usuario(String id) {
         this.id = id;
     }
 
-    public Usuario(int id, String nombre, String correo) {
+    public Usuario(String id, String nombre, String correo) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
     }
 
-    public Usuario(int id, String nombre, String correo, List<Catalogo> catalogos) {
+    public Usuario(String id, String nombre, String correo, List<Catalogo> catalogos) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.catalogos = catalogos;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

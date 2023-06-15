@@ -33,7 +33,7 @@ public class TestDao {
         ProductoCategoriaDAO productoCategoriaDAO = new ProductoCategoriaDAO();
     
         // test usuarios
-        Usuario usuario = new Usuario(randomID(), "nombre de usuario", "correo electronico");
+        Usuario usuario = new Usuario("ewriweri", "nombre de usuario", "correo electronico");
         System.out.println("USUARIO LOCAL: " + usuario);
         
         usuarioDAO.insertar(usuario);

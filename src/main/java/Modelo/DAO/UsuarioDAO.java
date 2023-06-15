@@ -37,7 +37,7 @@ public class UsuarioDAO implements IUsuario {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_INSERTAR);
-            sentencia.setInt(1, usuario.getId());
+            sentencia.setString(1, usuario.getId());
             sentencia.setString(2, usuario.getNombre());
             sentencia.setString(3, usuario.getCorreo());
             resultado = sentencia.executeUpdate();
@@ -68,7 +68,7 @@ public class UsuarioDAO implements IUsuario {
             sentencia = connection.prepareStatement(SQL_CONSULTAR); //esto sirve para que prepare la tabla de datos
             resultado = sentencia.executeQuery();//toma la forma del registro
             while (resultado.next()) {//recorre los registros
-                int id = resultado.getInt("id");
+                String id = resultado.getString("id");
                 String nombre = resultado.getString("nombre");
                 String correo = resultado.getString("correo");
 
@@ -107,11 +107,11 @@ public class UsuarioDAO implements IUsuario {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_CONSULTAR_ID, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY); //esto sirve para que prepare la tabla de datos(lo de resultset garantiza que devuelva un solo resultadoo)
-            sentencia.setInt(1, usuario.getId());
+            sentencia.setString(1, usuario.getId());
             resultado = sentencia.executeQuery();//toma la forma del registro
             resultado.absolute(1);
 
-            int id = resultado.getInt("id");
+            String id = resultado.getString("id");
             String nombre = resultado.getString("nombre");
             String correo = resultado.getString("correo");
 
@@ -146,7 +146,7 @@ public class UsuarioDAO implements IUsuario {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_BORRAR);
-            sentencia.setInt(1, usuario.getId());
+            sentencia.setString(1, usuario.getId());
             resultado = sentencia.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,7 +172,7 @@ public class UsuarioDAO implements IUsuario {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_ACTUALIZAR);
-            sentencia.setInt(3, usuario.getId());
+            sentencia.setString(3, usuario.getId());
             sentencia.setString(1, usuario.getNombre());
             sentencia.setString(2, usuario.getCorreo());
             resultado = sentencia.executeUpdate();
