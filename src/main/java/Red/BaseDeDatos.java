@@ -25,7 +25,7 @@ public class BaseDeDatos {
         BasicDataSource bs = new BasicDataSource();
         bs.setUrl(JDBC_URL);
         bs.setUsername(DB_USER);
-        //bs.setPassword(DB_CLAVE);  
+       // bs.setPassword(DB_CLAVE);  
         bs.setInitialSize(1);
         return bs; 
         

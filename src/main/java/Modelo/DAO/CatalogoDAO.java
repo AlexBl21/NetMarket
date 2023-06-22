@@ -51,7 +51,7 @@ public class CatalogoDAO implements ICatalogo {
             sentencia.setString(9, catalogo.getFacebook());
             sentencia.setString(10, catalogo.getWhatsapp());
             sentencia.setString(11, catalogo.getInstagram());
-            sentencia.setInt(12, usuario.getId());
+            sentencia.setString(12, usuario.getId());
             resultado = sentencia.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CatalogoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,7 +131,7 @@ public class CatalogoDAO implements ICatalogo {
         try {
             connection = BaseDeDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_CONSULTAR_USUARIO); //esto sirve para que prepare la tabla de datos
-            sentencia.setInt(1, usuario.getId());
+            sentencia.setString(1, usuario.getId());
             resultado = sentencia.executeQuery();//toma la forma del registro
             while (resultado.next()) {//recorre los registros
                 int id = resultado.getInt("id");
